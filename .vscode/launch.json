@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Sistema",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.Sistema",
+            "projectName": "Sistema-Contable_670b148c"
+        },
+        {
+            "type": "java",
+            "name": "Launch algo",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.algo",
+            "projectName": "Sistema-Contable_670b148c"
+        },
+        {
+            "type": "java",
+            "name": "Launch Ventana",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.Ventana",
+            "projectName": "Sistema-Contable_670b148c"
+        },
+        {
+            "type": "java",
+            "name": "Launch Sistema_Contable",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.Sistema_Contable",
+            "projectName": "Sistema-Contable_670b148c"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch Sistema_Contable",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.Sistema_Contable",
+            "projectName": "Sistema_Contable"
+        }
+    ]
+}
