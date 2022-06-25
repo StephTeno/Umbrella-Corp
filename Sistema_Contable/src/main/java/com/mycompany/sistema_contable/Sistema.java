@@ -159,15 +159,22 @@ public class Sistema {
         boolean salir=false, hp=false, exit=false;
         int op, o, cont=-1;
         String Ciclo;
-        double HInv=0, DInv=0, cV=0, V=0, DC=0, HC=0, Prov=0, Caja=0, Cliente=0, Empleados=0, Inventario=0, PapeleriasYUtiles=0, Maquinaria=0, Mobiliario=0,
-        Proveedores=0, CapitalSocial=0;
+        double HInventario=0, DInventario=0, CostoVenta=0, Venta=0, DCaja=0, HCaja=0, HProveedores=0, Caja=0, Cliente=0, Empleados=0, Inventario=0, PapeleriasYUtiles=0, Maquinaria=0, Mobiliario=0,
+        Proveedores=0, CapitalSocial=0, DProveedores=0;
         ArrayList<ElementosEF> Activos=new ArrayList<>();
         ArrayList<ElementosEF> Pasivos=new ArrayList<>();
         ArrayList<ElementosEF> Capital=new ArrayList<>();
         ArrayList<ElementosEF> Ingreso=new ArrayList<>();
         ArrayList<ElementosEF> Gastos=new ArrayList<>();
-        ArrayList<Asiento> Venta=new ArrayList<>();
+        ArrayList<Asiento> Ventas=new ArrayList<>();
         ArrayList<Asiento> Compra=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Activo=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Pasivo=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Capita=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Ingres=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Gasto=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Ventass=new ArrayList<>();
+        ArrayList<ElementoBalanceDeComprobacion> Compr=new ArrayList<>();
         Activos.add(new ElementosEF("1.1.1.1", "Caja", 0));
         Activos.add(new ElementosEF("1.1.2.1", "Clientes", 0));
         Activos.add(new ElementosEF("1.1.2.2", "Empleados", 0));
@@ -229,16 +236,16 @@ public class Sistema {
                                 System.out.print("\nRegistro N°: ");
                                 int Registro=l.nextInt();
                                 System.out.print("\nCuenta: Caja \t\tReferencia: "+cod+"\tCargo: ");
-                                double Debe=l.nextDouble();
+                                double Debe1=l.nextDouble();
                                 System.out.print("\nCuenta: Inventario \tReferencia: "+codi+"\tAbono: ");
-                                double Haber=l.nextDouble();
+                                double Haber1=l.nextDouble();
                                 System.out.println();
-                                HInventario+=Haber*0.8;
-                                DCaja+=Debe;
-                                Venta.add(new Asiento(DC, HInv, "Caja", "Inventario", Registro, cod, codi));
-                                CostoVenta+=HInv; //Costo de Ventas (Gasto=Debe)
-                                Venta+=Debe; //Ventas (Ingreso=Haber)
-                                Venta.add(new Asiento(cV, V, "Costo de Venta", "Ventas", Registro, "5.0.0.1", "4.0.0.1"));
+                                HInventario+=Haber1*0.8;
+                                DCaja+=Debe1;
+                                Ventas.add(new Asiento(DCaja, HInventario, "Caja", "Inventario", Registro, cod, codi));
+                                CostoVenta+=HInventario; //Costo de Ventas (Gasto=Debe)
+                                Venta+=Debe1; //Ventas (Ingreso=Haber)
+                                Ventas.add(new Asiento(CostoVenta, Venta, "Costo de Venta", "Ventas", Registro, "5.0.0.1", "4.0.0.1"));
                                 Espera();
                                 break;
                             
@@ -253,14 +260,15 @@ public class Sistema {
                                 System.out.print("\nRegistro N°: ");
                                 int Regist=l.nextInt();
                                 System.out.print("\nCuenta: Inventario \tReferencia: "+codo+"\tCargo: ");
-                                double Debe1=l.nextDouble();
+                                double Debe2=l.nextDouble();
                                 System.out.print("\nCuenta: Proveedores\tReferencia: "+codoo+"\tAbono: ");
-                                double Haber1=l.nextDouble();
+                                double Haber2=l.nextDouble();
                                 System.out.println();
-                                Prov+=Haber1;
-                                DInv+=Debe1;
-                                HC+=Haber1;
-                                Compra.add(new Asiento(DInv, Prov, "Inventario", "Proveedores", Regist, codo, codoo));
+                                HProveedores+=Haber2;
+                                DProveedores = HProveedores;
+                                DInventario+=Debe2;
+                                HCaja+=Haber2;
+                                Compra.add(new Asiento(DInventario, HProveedores, "Inventario", "Proveedores", Regist, codo, codoo));
                                 Espera();
                                 break;
 
@@ -278,8 +286,23 @@ public class Sistema {
                         }
                     }while(!exit);
                 }
-
-                    Caja=
+                    Caja=DCaja-HCaja-HInventario;
+                    Inventario=DInventario-HInventario;
+                    Proveedores=DProveedores-HProveedores;
+                    double Debe=Caja+Cliente+Empleados+Inventario+PapeleriasYUtiles+Maquinaria+Mobiliario+CostoVenta;
+                    double Haber=Proveedores+CapitalSocial+Venta;
+                    Activo.add(new ElementoBalanceDeComprobacion("1.1.1.1", "Caja", DCaja, HCaja, Caja, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("1.1.2.1", "Clientes", Cliente, 0, Cliente, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("1.1.2.2", "Empleados", Empleados, 0, Empleados, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("1.1.2.3", "Inventario", DInventario, HInventario, Inventario, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("1.1.2.4", "Papelerías y Utiles", PapeleriasYUtiles, 0, PapeleriasYUtiles, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("2.1.0.1", "Maquinaria", Maquinaria, 0, Maquinaria, 0));
+                    Activo.add(new ElementoBalanceDeComprobacion("2.1.0.2", "Mobiliario", Mobiliario, 0, Mobiliario, 0));
+                    Pasivo.add(new ElementoBalanceDeComprobacion("2.1.0.3", "Proveedores", DProveedores, HProveedores, 0, 0));
+                    Capita.add(new ElementoBalanceDeComprobacion("3.1.0.1", "Capital Social", 0, CapitalSocial, 0, CapitalSocial));
+                    Ingres.add(new ElementoBalanceDeComprobacion("4.0.0.1", "Ventas", 0, Venta, 0, Venta));
+                    Gasto.add(new ElementoBalanceDeComprobacion("5.0.0.1", "Costo de Venta", CostoVenta, 0, CostoVenta, 0));
+            
                     break;
                 
                 case 3:

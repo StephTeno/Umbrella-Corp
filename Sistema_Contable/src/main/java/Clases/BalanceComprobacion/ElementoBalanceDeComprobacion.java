@@ -1,6 +1,5 @@
 package Clases.BalanceComprobacion;
 public class ElementoBalanceDeComprobacion {
-    private int mNumero;
     private String mCodigo;
     private String mCuenta;
     private double mSumaDebe;
@@ -8,8 +7,7 @@ public class ElementoBalanceDeComprobacion {
     private double mSaldoDebe;
     private double mSaldoHaber;
 
-    public ElementoBalanceDeComprobacion(int numero, String codigo, String cuenta, double sumaDebe, double sumaHaber, double saldoDebe, double saldoHaber) {
-        mNumero = numero;
+    public ElementoBalanceDeComprobacion(String codigo, String cuenta, double sumaDebe, double sumaHaber, double saldoDebe, double saldoHaber) {
         mCodigo = codigo;
         mCuenta = cuenta;
         mSumaDebe = sumaDebe;
@@ -17,15 +15,6 @@ public class ElementoBalanceDeComprobacion {
         mSaldoDebe = saldoDebe;
         mSaldoHaber = saldoHaber;
     }
-
-    public int getNumero() {
-        return mNumero;
-    }
-
-    public void setNumero(int numero) {
-        mNumero = numero;
-    }
-
     public String getCodigo() {
         return mCodigo;
     }
