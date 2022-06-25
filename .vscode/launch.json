@@ -9,6 +9,13 @@
             "name": "Launch Sistema",
             "request": "launch",
             "mainClass": "com.mycompany.sistema_contable.Sistema",
+            "projectName": "Umbrella-Corp_b8cb5d3e"
+        },
+        {
+            "type": "java",
+            "name": "Launch Sistema",
+            "request": "launch",
+            "mainClass": "com.mycompany.sistema_contable.Sistema",
             "projectName": "Sistema-Contable_670b148c"
         },
         {

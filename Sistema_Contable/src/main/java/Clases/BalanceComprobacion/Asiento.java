@@ -60,4 +60,16 @@ public class Asiento {
     public void setmReferencia1(String mReferencia1) {
         this.mReferencia1 = mReferencia1;
     }
+
+    public String toString() {
+        return "Registro= " + mRegistro +"\n"+
+        "Cuenta: " + mCuenta + "\t\tReferencia: " + mReferencia + "Debe: " + mDebe +"\n"+
+        "Cuenta: " + mCuenta1 + "\tReferencia: " + mReferencia1 + ", Haber: " + mHaber;
+    }
+    public String toString1() {
+        return "Registro= " + mRegistro +"\n"+
+        "Cuenta: " + mCuenta + "\tReferencia: " + mReferencia + "Debe: " + mDebe +"\n"+
+        "Cuenta: " + mCuenta1 + "\tReferencia: " + mReferencia1 + ", Haber: " + mHaber;
+    }
+    
 }

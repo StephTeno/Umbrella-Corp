@@ -159,22 +159,22 @@ public class Sistema {
         boolean salir=false, hp=false, exit=false;
         int op, o, cont=-1;
         String Ciclo;
-        double HInv=0, DInv=0, cV=0, V=0, DC=0, HC=0, Prov=0;
+        double HInv=0, DInv=0, cV=0, V=0, DC=0, HC=0, Prov=0, Caja=0, Cliente=0, Empleados=0, Inventario=0, PapeleriasYUtiles=0, Maquinaria=0, Mobiliario=0,
+        Proveedores=0, CapitalSocial=0;
         ArrayList<ElementosEF> Activos=new ArrayList<>();
         ArrayList<ElementosEF> Pasivos=new ArrayList<>();
         ArrayList<ElementosEF> Capital=new ArrayList<>();
         ArrayList<ElementosEF> Ingreso=new ArrayList<>();
         ArrayList<ElementosEF> Gastos=new ArrayList<>();
         ArrayList<Asiento> Venta=new ArrayList<>();
-        ArrayList<Asiento> Venta1=new ArrayList<>();
         ArrayList<Asiento> Compra=new ArrayList<>();
         Activos.add(new ElementosEF("1.1.1.1", "Caja", 0));
         Activos.add(new ElementosEF("1.1.2.1", "Clientes", 0));
         Activos.add(new ElementosEF("1.1.2.2", "Empleados", 0));
         Activos.add(new ElementosEF("1.1.2.3", "Inventario", 0));
         Activos.add(new ElementosEF("1.1.2.4", "Papelerías y Utiles", 0));
-        Pasivos.add(new ElementosEF("2.1.0.1", "Proveedores", 0));
-        Pasivos.add(new ElementosEF("2.1.0.2", "Proveedores", 0));
+        Activos.add(new ElementosEF("2.1.0.1", "Maquinaria", 0));
+        Activos.add(new ElementosEF("2.1.0.2", "Mobiliario", 0));
         Pasivos.add(new ElementosEF("2.1.0.3", "Proveedores", 0));
         Capital.add(new ElementosEF("3.1.0.1", "Capital Social", 0));
         Capital.add(new ElementosEF("3.2.0.1", "Utilidad del Ejercicio", 0));
@@ -187,9 +187,28 @@ public class Sistema {
             op=l.nextInt();
             switch (op) {
                 case 1:
+                System.out.print("\n---SALDOS--INICIALES---");
                 System.out.print("\nIngrese la fecha del ciclo contable: ");
                 Ciclo=l.nextLine();
-
+                System.out.print("\nIngrese los saldos inicial");
+                System.out.print("\nCaja: ");
+                Caja=l.nextDouble();
+                System.out.print("\nClientes: ");
+                Cliente=l.nextDouble();
+                System.out.print("\nEmpleados: ");
+                Empleados=l.nextDouble();
+                System.out.print("\nInventario: ");
+                Inventario=l.nextDouble();
+                System.out.print("\nPapelerías y Utiles: ");
+                PapeleriasYUtiles=l.nextDouble();
+                System.out.print("\nMaquinaria: ");
+                Maquinaria=l.nextDouble();
+                System.out.print("\nMobiliario: ");
+                Mobiliario=l.nextDouble();
+                System.out.print("\nProveedores: ");
+                Proveedores=l.nextDouble();
+                System.out.print("\nCapital Social: ");
+                CapitalSocial=l.nextDouble();
                     break;
                 case 2:
                 hp=true;
@@ -214,12 +233,12 @@ public class Sistema {
                                 System.out.print("\nCuenta: Inventario \tReferencia: "+codi+"\tAbono: ");
                                 double Haber=l.nextDouble();
                                 System.out.println();
-                                HInv+=Haber*0.8;
-                                DC+=Debe;
+                                HInventario+=Haber*0.8;
+                                DCaja+=Debe;
                                 Venta.add(new Asiento(DC, HInv, "Caja", "Inventario", Registro, cod, codi));
-                                cV+=HInv; //Costo de Ventas (Gasto=Debe)
-                                V+=Debe; //Ventas (Ingreso=Haber)
-                                Venta1.add(new Asiento(cV, V, "Costo de Venta", "Ventas", Registro, "5.0.0.1", "4.0.0.1"));
+                                CostoVenta+=HInv; //Costo de Ventas (Gasto=Debe)
+                                Venta+=Debe; //Ventas (Ingreso=Haber)
+                                Venta.add(new Asiento(cV, V, "Costo de Venta", "Ventas", Registro, "5.0.0.1", "4.0.0.1"));
                                 Espera();
                                 break;
                             
@@ -254,11 +273,13 @@ public class Sistema {
                                 Error();
                                 Espera();
                                 break;
+                            
+                            
                         }
                     }while(!exit);
                 }
 
-
+                    Caja=
                     break;
                 
                 case 3:
