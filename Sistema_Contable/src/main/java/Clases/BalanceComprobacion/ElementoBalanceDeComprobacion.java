@@ -62,4 +62,9 @@ public class ElementoBalanceDeComprobacion {
     public void setSaldoHaber(double saldoHaber) {
         mSaldoHaber = saldoHaber;
     }
+    @Override
+    public String toString() {
+        return "\t\t" + mCuenta + " \t\t" + mSaldoDebe + " \t\t" +  mSaldoHaber + " \t\t" +  mSumaDebe + " \t\t" + mSumaHaber;                      
+    }
+    
 }

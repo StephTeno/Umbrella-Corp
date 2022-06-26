@@ -58,7 +58,49 @@ public class Sistema {
         }
         return ps;
     }
-    public static void DatosBalanceGeneral(String Ciclo, double SC, double SCL, double SE, double SI, double SM, double SMa, double CS, double UE){
+    public static double SumaDeber(ArrayList<ElementoBalanceDeComprobacion> A, ArrayList<ElementoBalanceDeComprobacion> P, ArrayList<ElementoBalanceDeComprobacion> C, ArrayList<ElementoBalanceDeComprobacion> I, ArrayList<ElementoBalanceDeComprobacion> G){
+        double SDA=0,SDP=0,SDC=0,SDI=0,SDG=0;
+        double Deber=0;
+        for (int i = 0; i < A.size(); i++) {
+            SDA+=A.get(i).getSaldoDebe();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SDP+=A.get(i).getSaldoDebe();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SDC+=A.get(i).getSaldoDebe();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SDI+=A.get(i).getSaldoDebe();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SDG+=A.get(i).getSaldoDebe();
+        }
+        Deber=SDA+SDP+SDC+SDI+SDG;
+        return Deber;
+    }
+    public static double SumaHaber(ArrayList<ElementoBalanceDeComprobacion> A, ArrayList<ElementoBalanceDeComprobacion> P, ArrayList<ElementoBalanceDeComprobacion> C, ArrayList<ElementoBalanceDeComprobacion> I, ArrayList<ElementoBalanceDeComprobacion> G){
+        double SHA=0,SHP=0,SHC=0,SHI=0,SHG=0;
+        double Haber=0;
+        for (int i = 0; i < A.size(); i++) {
+            SHA+=A.get(i).getSaldoHaber();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SHP+=A.get(i).getSaldoHaber();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SHC+=A.get(i).getSaldoHaber();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SHI+=A.get(i).getSaldoHaber();
+        }
+        for (int i = 0; i < A.size(); i++) {
+            SHG+=A.get(i).getSaldoHaber();
+        }
+        Haber=SHA+SHP+SHC+SHI+SHG;
+        return Haber;
+    }
+    public static void DatosBalanceGeneral(String Ciclo, double Caja, double Cliente, double Empleados, double Inventario, double Mobiliario, double Maquinaria, double CapitalSocial, double UtilidadEjercicio){
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("\t\t--------------------------------------------");
@@ -72,20 +114,20 @@ public class Sistema {
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\t\tACTIVOS");
         System.out.println("\t\t--------------------------------------------");
-        System.out.println("\t\t\tCaja \t"+SC);
-        System.out.println("\t\t\tClientes \t"+SCL);
-        System.out.println("\t\t\tEmpleados \t"+SE);
-        System.out.println("\t\t\tInventario \t"+SI);
-        System.out.println("\t\t\tMobiliario \t"+SM);
-        System.out.println("\t\t\tMaquinario \t"+SMa);
-        double TA=SC+SCL+SE+SI+SM+SMa;
+        System.out.println("\t\t\tCaja \t"+Caja);
+        System.out.println("\t\t\tClientes \t"+Cliente);
+        System.out.println("\t\t\tEmpleados \t"+Empleados);
+        System.out.println("\t\t\tInventario \t"+Inventario);
+        System.out.println("\t\t\tMobiliario \t"+Mobiliario);
+        System.out.println("\t\t\tMaquinaria \t"+Maquinaria);
+        double TA=Caja+Cliente+Empleados+Inventario+Mobiliario+Maquinaria;
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\tTOTAL ACTIVOS= \t"+TA);
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\t\tCAPITAL");
-        System.out.println("\t\t\tCapital social \t"+CS);
-        System.out.println("\t\t\tUtilidad del ejercicio \t"+UE);
-        double TC=CS+UE;
+        System.out.println("\t\t\tCapital social \t"+CapitalSocial);
+        System.out.println("\t\t\tUtilidad del ejercicio \t"+UtilidadEjercicio);
+        double TC=CapitalSocial+UtilidadEjercicio;
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\tTOTAL CAPITAL= \t"+TC);
         System.out.println("\t\t--------------------------------------------");
@@ -94,7 +136,7 @@ public class Sistema {
         System.out.println(" ");
         System.out.println(" ");
     }
-    public static void DatosEstadoResultado(String Ciclo, double VN, double CV){
+    public static void DatosEstadoResultado(String Ciclo, double Venta, double CostoVenta){
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("\t\t--------------------------------------------");
@@ -105,14 +147,14 @@ public class Sistema {
         System.out.println("\t\t\t    Estado de Resultado");
         System.out.println("\t\t\t   Al "+Ciclo);
         System.out.println(" ");
-        System.out.println("\t\t\tVentas Netas\t"+VN);
-        System.out.println("\t\t\tCosto de Venta\t"+CV);
-        double UE=VN-CV;
-        System.out.println("\t\tUtilidad del Ejercicio \t"+UE);
+        System.out.println("\t\t\tVentas Netas\t"+Venta);
+        System.out.println("\t\t\tCosto de Venta\t"+CostoVenta);
+        double UtilidadEjercicio=Venta-CostoVenta;
+        System.out.println("\t\tUtilidad del Ejercicio \t"+UtilidadEjercicio);
         System.out.println(" ");
         System.out.println(" ");
     }
-    public static void DatosBalanzaComparacion(String Ciclo, double TC, double TCL, double TE, double TI, double TM, double TMa,double TP, double TIR, double TCS, double TUE, double TV, double TCV){
+    public static void DatosBalanzaComparacion(String Ciclo, double Debe, double Haber, ArrayList<ElementoBalanceDeComprobacion> A, ArrayList<ElementoBalanceDeComprobacion> P, ArrayList<ElementoBalanceDeComprobacion> C, ArrayList<ElementoBalanceDeComprobacion> I, ArrayList<ElementoBalanceDeComprobacion> G){
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("\t\t\t\t\t--------------------------------------------");
@@ -129,28 +171,45 @@ public class Sistema {
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
         System.out.println("\t\t\tACTIVOS");
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tCaja \t\t"+271866.05+"\t\t"+238523.1+"\t\t"+"-"+"\t\t\t"+"-");
+/*         System.out.println("\t\tCaja \t\t"+271866.05+"\t\t"+238523.1+"\t\t"+"-"+"\t\t\t"+"-");
         System.out.println("\t\tInventario \t"+332546.7+"\t\t"+212711.72+"\t\t"+119834.98+"\t\t"+"-");
         System.out.println("\t\tMobiliario \t"+35000+"\t\t\t"+"-"+"\t\t\t"+35000+"\t\t\t"+"-");
-        System.out.println("\t\tMaquinario \t"+15000+"\t\t\t"+"-"+"\t\t\t"+15000+"\t\t\t"+"-");
+        System.out.println("\t\tMaquinario \t"+15000+"\t\t\t"+"-"+"\t\t\t"+15000+"\t\t\t"+"-"); */
+        for (ElementoBalanceDeComprobacion c : A) {
+            System.out.println("\t\t\t" + c.toString());
+        }
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
         System.out.println("\t\t\tPASIVOS");
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tProveedores \t"+265889.65+"\t\t"+265889.65+"\t\t"+"-"+"\t\t"+"-");
+/*         System.out.println("\t\tProveedores \t"+265889.65+"\t\t"+265889.65+"\t\t"+"-"+"\t\t"+"-"); */
+        for (ElementoBalanceDeComprobacion c : P) {
+            System.out.println("\t\t\t" + c.toString());
+        }
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
         System.out.println("\t\t\tCAPITAL");
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tCapital social \t"+"-"+"\t\t\t"+150000+"\t\t\t"+"-"+"\t\t\t"+150000);
+/*         System.out.println("\t\tCapital social \t"+"-"+"\t\t\t"+150000+"\t\t\t"+"-"+"\t\t\t"+150000); */
+        for (ElementoBalanceDeComprobacion c : C) {
+            System.out.println("\t\t\t" + c.toString());
+        }
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
         System.out.println("\t\t\tINGRESOS");
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tVENTAS  \t"+"-"+"\t\t\t"+265889.65+"\t\t"+"-"+"\t\t\t"+265889.65);
+/*         System.out.println("\t\tVENTAS  \t"+"-"+"\t\t\t"+265889.65+"\t\t"+"-"+"\t\t\t"+265889.65); */
+        for (ElementoBalanceDeComprobacion c : I) {
+            System.out.println("\t\t\t" + c.toString());
+        }
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
         System.out.println("\t\t\tGASTOS");
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tCOSTO DE VENTA \t"+212711.72+"\t\t"+212711.72);
+/*         System.out.println("\t\tCOSTO DE VENTA \t"+212711.72+"\t\t"+212711.72); */
+        for (ElementoBalanceDeComprobacion c : G) {
+            System.out.println("\t\t\t" + c.toString());
+        }
         System.out.println("\t\t-----------------------------------------------------------------------------------------------");
-        System.out.println("\t\tTOTALES \t"+1133014.12+"\t\t"+1133014.12+"\t\t"+415889.65+"\t\t"+415889.65);
+        double MDebe=SumaDeber(A, P, C, I, G);
+        double MHaber=SumaHaber(A, P, C, I, G);
+        System.out.println("\t\tTOTALES \t"+MDebe+"\t\t"+MHaber+"\t\t"+Debe+"\t\t"+Haber);
         System.out.println(" ");
         System.out.println(" ");
     }
@@ -173,8 +232,6 @@ public class Sistema {
         ArrayList<ElementoBalanceDeComprobacion> Capita=new ArrayList<>();
         ArrayList<ElementoBalanceDeComprobacion> Ingres=new ArrayList<>();
         ArrayList<ElementoBalanceDeComprobacion> Gasto=new ArrayList<>();
-        ArrayList<ElementoBalanceDeComprobacion> Ventass=new ArrayList<>();
-        ArrayList<ElementoBalanceDeComprobacion> Compr=new ArrayList<>();
         Activos.add(new ElementosEF("1.1.1.1", "Caja", 0));
         Activos.add(new ElementosEF("1.1.2.1", "Clientes", 0));
         Activos.add(new ElementosEF("1.1.2.2", "Empleados", 0));
@@ -291,6 +348,7 @@ public class Sistema {
                     Proveedores=DProveedores-HProveedores;
                     double Debe=Caja+Cliente+Empleados+Inventario+PapeleriasYUtiles+Maquinaria+Mobiliario+CostoVenta;
                     double Haber=Proveedores+CapitalSocial+Venta;
+                    double UtilidadEjercicio=Venta-CostoVenta;
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.1.1", "Caja", DCaja, HCaja, Caja, 0));
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.2.1", "Clientes", Cliente, 0, Cliente, 0));
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.2.2", "Empleados", Empleados, 0, Empleados, 0));
@@ -307,7 +365,9 @@ public class Sistema {
                 
                 case 3:
                 if (hp) {
+
                     System.out.print("\n---BALANZA DE COMPROBACIÓN---");
+                    DatosBalanzaComparacion(Ciclo, Debe, Haber, Activo, Pasivo, Capita, Ingres, Gasto);
                 } else {
                     System.out.print("\nNo puede ejecutar esta funcionalidad mientras no hayan transacciones registrados, favor registrar al menos uno");
                     System.out.println("\t");
@@ -317,6 +377,7 @@ public class Sistema {
                 case 4:
                 if (hp) {
                     System.out.print("\n---ESTADO DE RESULTADO---");
+                    DatosEstadoResultado(Ciclo, Venta, CostoVenta);
                 } else {
                     System.out.print("\nNo puede ejecutar esta funcionalidad mientras no hayan transacciones registrados, favor registrar al menos uno");
                     System.out.println("\t");
@@ -326,6 +387,7 @@ public class Sistema {
                 case 5:
                 if (hp) {
                     System.out.print("\n---BALANCE GENERAL---");
+                    DatosBalanceGeneral(Ciclo, Caja, Cliente, Empleados, Inventario, Mobiliario, Maquinaria, CapitalSocial, UtilidadEjercicio);
                 } else {
                     System.out.print("\nNo puede ejecutar esta funcionalidad mientras no hayan transacciones registrados, favor registrar al menos uno");
                 System.out.println("\t");
