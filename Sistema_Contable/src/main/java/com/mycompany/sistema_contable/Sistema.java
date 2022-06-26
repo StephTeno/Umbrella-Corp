@@ -100,7 +100,7 @@ public class Sistema {
         Haber=SHA+SHP+SHC+SHI+SHG;
         return Haber;
     }
-    public static void DatosBalanceGeneral(String Ciclo, double Caja, double Cliente, double Empleados, double Inventario, double Mobiliario, double Maquinaria, double CapitalSocial, double UtilidadEjercicio){
+    public static void DatosBalanceGeneral(String Ciclo, double Venta, double CostoVenta, double Caja, double Cliente, double Empleados, double Inventario, double Mobiliario, double Maquinaria, double CapitalSocial){
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("\t\t--------------------------------------------");
@@ -126,8 +126,9 @@ public class Sistema {
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\t\tCAPITAL");
         System.out.println("\t\t\tCapital social \t"+CapitalSocial);
-        System.out.println("\t\t\tUtilidad del ejercicio \t"+UtilidadEjercicio);
-        double TC=CapitalSocial+UtilidadEjercicio;
+        double UE=UtilidadEj(Venta, CostoVenta);
+        System.out.println("\t\t\tUtilidad del ejercicio \t"+UE);
+        double TC=CapitalSocial+UE;
         System.out.println("\t\t--------------------------------------------");
         System.out.println("\t\t\tTOTAL CAPITAL= \t"+TC);
         System.out.println("\t\t--------------------------------------------");
@@ -135,6 +136,10 @@ public class Sistema {
         System.out.println("\t\t"+TA+"\t\t= \t"+TC);
         System.out.println(" ");
         System.out.println(" ");
+    }
+    public static double UtilidadEj(double Venta, double CostoVenta){
+        double UtilidadEjercicio=Venta-CostoVenta;
+        return UtilidadEjercicio;
     }
     public static void DatosEstadoResultado(String Ciclo, double Venta, double CostoVenta){
         System.out.println(" ");
@@ -217,9 +222,9 @@ public class Sistema {
         Scanner l= new Scanner(System.in);
         boolean salir=false, hp=false, exit=false;
         int op, o, cont=-1;
-        String Ciclo;
+        String Ciclo="";
         double HInventario=0, DInventario=0, CostoVenta=0, Venta=0, DCaja=0, HCaja=0, HProveedores=0, Caja=0, Cliente=0, Empleados=0, Inventario=0, PapeleriasYUtiles=0, Maquinaria=0, Mobiliario=0,
-        Proveedores=0, CapitalSocial=0, DProveedores=0;
+        Proveedores=0, CapitalSocial=0, DProveedores=0, Debe=0, Haber=0;
         ArrayList<ElementosEF> Activos=new ArrayList<>();
         ArrayList<ElementosEF> Pasivos=new ArrayList<>();
         ArrayList<ElementosEF> Capital=new ArrayList<>();
@@ -338,17 +343,14 @@ public class Sistema {
                                 Error();
                                 Espera();
                                 break;
-                            
-                            
                         }
                     }while(!exit);
                 }
                     Caja=DCaja-HCaja-HInventario;
                     Inventario=DInventario-HInventario;
                     Proveedores=DProveedores-HProveedores;
-                    double Debe=Caja+Cliente+Empleados+Inventario+PapeleriasYUtiles+Maquinaria+Mobiliario+CostoVenta;
-                    double Haber=Proveedores+CapitalSocial+Venta;
-                    double UtilidadEjercicio=Venta-CostoVenta;
+                    Debe=Caja+Cliente+Empleados+Inventario+PapeleriasYUtiles+Maquinaria+Mobiliario+CostoVenta;
+                    Haber=Proveedores+CapitalSocial+Venta;
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.1.1", "Caja", DCaja, HCaja, Caja, 0));
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.2.1", "Clientes", Cliente, 0, Cliente, 0));
                     Activo.add(new ElementoBalanceDeComprobacion("1.1.2.2", "Empleados", Empleados, 0, Empleados, 0));
@@ -360,12 +362,12 @@ public class Sistema {
                     Capita.add(new ElementoBalanceDeComprobacion("3.1.0.1", "Capital Social", 0, CapitalSocial, 0, CapitalSocial));
                     Ingres.add(new ElementoBalanceDeComprobacion("4.0.0.1", "Ventas", 0, Venta, 0, Venta));
                     Gasto.add(new ElementoBalanceDeComprobacion("5.0.0.1", "Costo de Venta", CostoVenta, 0, CostoVenta, 0));
-            
+
                     break;
                 
                 case 3:
                 if (hp) {
-
+                    
                     System.out.print("\n---BALANZA DE COMPROBACIÓN---");
                     DatosBalanzaComparacion(Ciclo, Debe, Haber, Activo, Pasivo, Capita, Ingres, Gasto);
                 } else {
@@ -387,7 +389,7 @@ public class Sistema {
                 case 5:
                 if (hp) {
                     System.out.print("\n---BALANCE GENERAL---");
-                    DatosBalanceGeneral(Ciclo, Caja, Cliente, Empleados, Inventario, Mobiliario, Maquinaria, CapitalSocial, UtilidadEjercicio);
+                    DatosBalanceGeneral(Ciclo, Venta, CostoVenta, Caja, Cliente, Empleados, Inventario, Mobiliario, Maquinaria, CapitalSocial);
                 } else {
                     System.out.print("\nNo puede ejecutar esta funcionalidad mientras no hayan transacciones registrados, favor registrar al menos uno");
                 System.out.println("\t");
